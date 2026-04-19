@@ -24,6 +24,9 @@ abstract public class Pet {
         this.type = type;
     }
 
+    public int getId() {
+        return id;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -43,7 +46,7 @@ abstract public class Pet {
     public int getTotalMonths() { return totalMonths; }
     public abstract String getFeatures();
     public String getDescription() {
-        return "Type: " + type + " | Name: " + name +
+        return "ID: " + id + " | Type: " + type + " | Name: " + name +
                 " | Age: " + getYears() + "y " + getMonths() + "m" +
                 " | Features: " + getFeatures();
     }

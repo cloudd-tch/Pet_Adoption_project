@@ -11,6 +11,7 @@ public class DatabaseHandler {
         return DriverManager.getConnection(URL);
     }
     public int generatedId;
+
     public void initialize() {
         String query = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -78,20 +79,21 @@ public class DatabaseHandler {
     public void addPet(String type, String name, int totalMonths, String features, boolean canTalk) {
         String sql = "INSERT INTO pets (type, name, totalMonths, features, canTalk) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
-             PreparedStatement prStmt = conn.prepareStatement(sql)) {
+             PreparedStatement prStmt = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             prStmt.setString(1, type);
             prStmt.setString(2, name);
             prStmt.setInt(3, totalMonths);
             prStmt.setString(4, features);
             prStmt.setInt(5, canTalk ? 1 : 0);
             prStmt.executeUpdate();
-            ResultSet rs = prStmt.getGeneratedKeys();
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
+            try (ResultSet rs = prStmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    this.generatedId = rs.getInt(1);
+                }
             }
-            System.out.println("Pet added successfully ^^");
+            System.out.println("Pet added! ID: " + this.generatedId);
         } catch (SQLException e) {
-            System.out.println("Error adding pet: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
