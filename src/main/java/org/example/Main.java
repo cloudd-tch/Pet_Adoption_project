@@ -61,23 +61,23 @@ public class Main {
                 String u = sc.nextLine().trim();
                 if (db.isValueExists("users", "username", u)) {
                     System.out.println("User already exists!");
-                    return;
-                }
-                System.out.println("Please set a password:");
-                String p = sc.nextLine().trim();
-                try {
-                    Validator.validateCredentials(u, "Username");
-                    Validator.validateCredentials(p, "Password");
-                    db.registerUser(u, p, "USER");
-                    currentUser = new User(u, p, "USER");
-                    registered = true;
-                    System.out.println("Registration successful ^^");
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Error: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Error: username is already taken!");
-                    System.out.println("Please try again.");
-                    registered = false;
+                } else {
+                    System.out.println("Please set a password:");
+                    String p = sc.nextLine().trim();
+                    try {
+                        Validator.validateCredentials(u, "Username");
+                        Validator.validateCredentials(p, "Password");
+                        db.registerUser(u, p, "USER");
+                        currentUser = new User(u, p, "USER");
+                        registered = true;
+                        System.out.println("Registration successful ^^");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("Error: username is already taken!");
+                        System.out.println("Please try again.");
+                        registered = false;
+                    }
                 }
             } else {
                 System.out.println("You have entered an incorrect format");
