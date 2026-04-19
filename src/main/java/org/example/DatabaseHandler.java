@@ -22,7 +22,7 @@ public class DatabaseHandler {
                 "type TEXT NOT NULL," +
                 "name TEXT UNIQUE NOT NULL," +
                 "totalMonths INTEGER," +
-                "features TEXT NOT NULL)" +
+                "features TEXT NOT NULL," +
                 "canTalk INTEGER DEFAULT 0)";
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
