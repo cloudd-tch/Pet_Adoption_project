@@ -74,7 +74,7 @@ public class Main {
                     } catch (IllegalArgumentException e) {
                         System.out.println("Error: " + e.getMessage());
                     } catch (Exception e) {
-                        System.out.println("Error: username is already taken!");
+                        System.out.println("Error: this username is already taken!");
                         System.out.println("Please try again.");
                         registered = false;
                     }
